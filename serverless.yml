@@ -11,6 +11,8 @@
 #
 # Happy Coding!
 
+org: thrashindustries
+app: app
 service: serverless-hello
 # app and org for use with dashboard.serverless.com
 #app: your-app-name
@@ -21,7 +23,9 @@ service: serverless-hello
 frameworkVersion: "2"
 
 provider:
+  # deploying to aws
   name: aws
+  # using node js runtime
   runtime: nodejs12.x
   lambdaHashingVersion: 20201221
 
@@ -59,11 +63,19 @@ provider:
 #    - exclude-me-dir/**
 
 functions:
+  # serverless framework needs to know how to configure here
   hello:
+    # links to root of the file and folder
+    # eg ./handler
+    # .hello links to export of function itself
     handler: handler.hello
-#    The following are a few example events you can configure
-#    NOTE: Please make sure to change your handler code to work with those events
-#    Check the event documentation for details
+    #    The following are a few example events you can configure
+    #    NOTE: Please make sure to change your handler code to work with those events
+    #    Check the event documentation for details
+    events:
+      - http:
+          path: /hello
+          method: get
 #    events:
 #      - httpApi:
 #          path: /users/create
